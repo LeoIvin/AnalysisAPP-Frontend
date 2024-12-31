@@ -47,6 +47,7 @@ const UploadSales = () => {
       }
 
       setSummaryData(uploadResponse);
+      setSuccess('File uploaded and analyzed successfully!'); 
     } catch (err) {
       setError(err.response?.data?.error || 'Error processing file');
     } finally {

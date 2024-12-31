@@ -56,7 +56,7 @@ function App() {
         >
           <Route path="/home" element={<Home />} />
           <Route path="/upload-sales" element={<UploadSales />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/settings/*" element={<Settings />} />
         </Route>
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>

@@ -6,12 +6,12 @@ const api = axios.create({
     baseURL: API_URL
 });
 
-// Add the interceptor
+// Add a request interceptor to include the token
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
         if (token) {
-            config.headers.Authorization = `Token ${token}`;
+            config.headers['Authorization'] = `Token ${token}`;
         }
         return config;
     },
@@ -32,7 +32,6 @@ export const login = async (username, password) => {
         }
         return response.data;
     } catch (error) {
-        console.error('Login error:', error.response || error);
         throw error;
     }
 };
@@ -49,7 +48,6 @@ export const register = async (email, username, password) => {
         }
         return response.data;
     } catch (error) {
-        console.error('Register error:', error.response || error);
         throw error;
     }
 };
@@ -60,7 +58,6 @@ export const getData = async () => {
         const response = await api.get('api/data/');
         return response.data;
     } catch (error) {
-        console.error('Error fetching data:', error.response || error);
         throw error;
     }
 };
@@ -73,10 +70,8 @@ export const uploadSalesFile = async (formData) => {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log('Upload response:', response.data);
         return response.data;
     } catch (error) {
-        console.error('Upload error:', error.response || error);
         throw error;
     }
 };
@@ -87,7 +82,66 @@ export const fetchSalesSummary = async (summaryId) => {
         const response = await api.get(`/get/summary/${summaryId}/`);
         return response.data;
     } catch (error) {
-        console.error('Error fetching sales summary:', error.response || error);
+        throw error;
+    }
+};
+
+// Profile endpoints
+export const getProfile = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await api.get('profile/', {
+            headers: { 
+                'Authorization': `Token ${token}`,
+                'Accept': 'application/json'
+            }
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const updateProfile = async (formData) => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await api.patch('profile/update/', formData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json'
+            }
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Dashboard stats endpoint
+export const getDashboardStats = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await api.get('api/dashboard/stats/', {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Accept': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
         throw error;
     }
 };
