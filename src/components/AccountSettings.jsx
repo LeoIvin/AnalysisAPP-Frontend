@@ -85,8 +85,15 @@ const AccountSettings = () => {
     try {
       const formData = new FormData();
       Object.keys(profile).forEach(key => {
+        // Only append if the value exists and it's not an empty string
         if (profile[key] !== null && profile[key] !== '') {
-          formData.append(key, profile[key]);
+          // Handle file separately
+          if (key === 'profile_picture' && typeof profile[key] === 'object') {
+            formData.append(key, profile[key]);
+          } else if (key !== 'profile_picture') {
+            // For non-file fields, convert to string
+            formData.append(key, String(profile[key]));
+          }
         }
       });
 

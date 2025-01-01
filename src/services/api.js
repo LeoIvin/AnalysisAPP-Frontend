@@ -86,6 +86,16 @@ export const fetchSalesSummary = async (summaryId) => {
     }
 };
 
+// Get latest summary
+export const getSummary = async () => {
+    try {
+        const response = await api.get('api/summary/');
+        return response.data; 
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Profile endpoints
 export const getProfile = async () => {
     try {
@@ -113,15 +123,21 @@ export const updateProfile = async (formData) => {
             throw new Error('No authentication token found');
         }
 
+        // Log the FormData contents for debugging
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+
         const response = await api.patch('profile/update/', formData, {
             headers: {
                 'Authorization': `Token ${token}`,
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                // Let axios set the Content-Type automatically for FormData
             }
         });
         return response;
     } catch (error) {
+        console.error('Profile update error:', error.response?.data || error.message);
         throw error;
     }
 };
