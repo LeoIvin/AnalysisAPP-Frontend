@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import loginPreview from '/login-preview.png';
-import loginPreviewFallback from '/login-preview.png';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/api';
 
 const LoginPage = () => {
@@ -9,17 +7,18 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    rememberMe: false
   });
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
-  useEffect(() => {
-    const year = new Date().getFullYear();
-    if (document.getElementById('current-year')) {
-      document.getElementById('current-year').textContent = year;
-    }
-  }, []);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +27,6 @@ const LoginPage = () => {
 
     try {
       const response = await login(formData.username, formData.password);
-      
       if (response.token) {
         localStorage.setItem('token', response.token);
         navigate('/home');
@@ -36,27 +34,24 @@ const LoginPage = () => {
         setError('Invalid login response from server');
       }
     } catch (err) {
-      console.error('Login failed');
+      console.error('Login failed:', err);
       setError(err.response?.data?.error || err.response?.data?.message || err.message || 'Login failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+  const handleGoogleSignIn = () => {
+    // Implement Google Sign In logic here
+    console.log('Google Sign In clicked');
   };
 
   return (
-    <div className="font-poppins bg-gray-100">
+    <div className="min-h-screen bg-gray-100 font-poppins">
       <div className="container mx-auto p-4 flex items-center justify-center min-h-screen">
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm w-full max-w-md md:max-w-4xl flex flex-col md:flex-row">
+        <div className="flex w-full max-w-4xl bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
           {/* Form Section */}
-          <div className="bg-white border-gray-200 p-6 w-full md:w-1/2 font-poppins">
+          <div className="w-full md:w-1/2 p-6">
             {/* Logo */}
             <div className="text-center mb-9">
               <h1 className="text-3xl font-bold font-archivo tracking-wide text-black">DATUS.</h1>
@@ -66,14 +61,16 @@ const LoginPage = () => {
               <h1 className="text-2xl font-bold text-gray-800">Sign In</h1>
               <p className="mt-2 text-sm text-gray-600">
                 Don't have an account yet?{' '}
-                <a href="/register" className="text-blue-600 hover:underline focus:outline-none font-medium">
+                <Link to="/register" className="text-blue-600 hover:underline focus:outline-none font-medium">
                   Sign up here
-                </a>
+                </Link>
               </p>
             </div>
 
+            {/* Google Sign In Button */}
             <button
               type="button"
+              onClick={handleGoogleSignIn}
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
             >
               <svg className="w-4 h-auto" width="46" height="47" viewBox="0 0 46 47" fill="none">
@@ -89,92 +86,76 @@ const LoginPage = () => {
               Or
             </div>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit}>
-              <div className="grid gap-y-4">
-                {error && (
-                  <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded">
-                    {error}
-                  </div>
-                )}
-                
-                {/* Username Field */}
-                <div>
-                  <label htmlFor="username" className="block text-sm mb-2 text-gray-700">Username</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      id="username"
-                      name="username"
-                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                      required
-                      value={formData.username}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
+            {/* Login Form */}
+            <form onSubmit={handleSubmit} className="grid gap-y-4">
+              {error && (
+                <div className="text-xs text-red-600 mt-2">{error}</div>
+              )}
 
-                {/* Password Field */}
-                <div>
-                  <label htmlFor="password" className="block text-sm mb-2 text-gray-700">Password</label>
-                  <div className="relative">
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                      required
-                      value={formData.password}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-
-                {/* Checkbox */}
-                <div className="flex items-center">
-                  <div className="flex">
-                    <input
-                      id="remember-me"
-                      name="rememberMe"
-                      type="checkbox"
-                      className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500"
-                      checked={formData.rememberMe}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="ms-3">
-                    <label htmlFor="remember-me" className="text-sm text-gray-600">Remember me</label>
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className={`py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none`}
-                >
-                  {isLoading ? (
-                    <>
-                      <span className="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full"></span>
-                      Signing in...
-                    </>
-                  ) : (
-                    'Sign in'
-                  )}
-                </button>
+              <div>
+                <label htmlFor="username" className="block text-sm mb-2">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="John Doe"
+                />
               </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm mb-2">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="*****"
+                />
+              </div>
+
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="shrink-0 mt-0.5 border border-gray-200 rounded text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="remember-me" className="text-sm ms-3">
+                  I accept the <a href="#" className="text-blue-600 hover:underline focus:outline-none font-medium">Terms and Conditions</a>
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50"
+              >
+                {isLoading ? 'Signing in...' : 'Sign in'}
+              </button>
             </form>
+
+            <footer className="mt-8">
+              <h1 className="font-poppins text-sm text-gray-600 text-center">
+                All rights reserved &copy; {new Date().getFullYear()}{' '}
+                <Link to="/dashboard" className="underline hover:text-blue-600 focus:ring-blue-500">
+                  DatusAI
+                </Link>
+              </h1>
+            </footer>
           </div>
 
           {/* Image Section */}
-          <div className="hidden md:block w-1/2 relative">
+          <div className="hidden md:flex md:w-1/2 bg-blue-600 items-center justify-center p-8">
             <img
-              className="w-full h-full object-cover rounded-r-xl"
-              src={loginPreview}
+              src="/login-preview.png"
               alt="Login preview"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = loginPreviewFallback;
-              }}
+              className="max-w-full h-auto rounded-lg"
             />
           </div>
         </div>
