@@ -105,8 +105,8 @@ const Dashboard = () => {
 
         {/* Sidebar panel */}
         <div className="relative flex flex-col w-full max-w-xs bg-white h-full">
-          <div className="flex items-center justify-between h-16 px-6 bg-white border-b">
-            <Link to="/home" className="text-2xl font-bold text-gray-800">DATUS.</Link>
+          <div className="flex items-center justify-between h-16 px-6 bg-white border-b border-gray-200">
+            <Link to="/home" className="text-2xl font-bold text-gray-800 py-4">DATUS.</Link>
             <button onClick={() => setSidebarOpen(false)} className="text-gray-500 hover:text-gray-700">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -138,14 +138,24 @@ const Dashboard = () => {
                 Upload Data
               </Link>
               <Link 
-                to="/sales-analysis" 
+                to="/predictions" 
                 className="flex items-center px-4 py-2 text-black hover:bg-gray-100 rounded-lg"
-                onClick={() => handleNavigation('/sales-analysis')}
+                onClick={() => handleNavigation('/predictions')}
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
                 </svg>
-                Sales Analysis
+                Get Predictions
+              </Link>
+              <Link 
+                to="/subscription" 
+                className="flex items-center px-4 py-2 text-black hover:bg-gray-100 rounded-lg"
+                onClick={() => handleNavigation('/subscription')}
+              >
+                <svg className="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                </svg>
+                Your Subscription
               </Link>
             </div>
 
@@ -182,8 +192,8 @@ const Dashboard = () => {
       <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-64 lg:bg-white lg:shadow-lg">
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center justify-between h-16 px-6 bg-white border-b">
-            <Link to="/home" className="text-2xl font-bold text-gray-800">DATUS.</Link>
+          <div className="flex items-center justify-between h-16 px-6 bg-white border-b border-gray-200">
+            <Link to="/home" className="text-2xl font-bold text-gray-800 py-4">DATUS.</Link>
           </div>
 
           {/* Navigation Links */}
@@ -210,14 +220,24 @@ const Dashboard = () => {
                 Upload Data
               </Link>
               <Link 
-                to="/sales-analysis" 
+                to="/predictions" 
                 className="flex items-center px-4 py-2 text-black hover:bg-gray-100 rounded-lg"
-                onClick={() => handleNavigation('/sales-analysis')}
+                onClick={() => handleNavigation('/predictions')}
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
                 </svg>
-                Sales Analysis
+                Get Predictions
+              </Link>
+              <Link 
+                to="/subscription" 
+                className="flex items-center px-4 py-2 text-black hover:bg-gray-100 rounded-lg"
+                onClick={() => handleNavigation('/subscription')}
+              >
+                <svg className="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                </svg>
+                Your Subscription
               </Link>
             </div>
 

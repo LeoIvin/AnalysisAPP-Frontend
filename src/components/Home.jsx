@@ -194,7 +194,7 @@ const Home = () => {
         labels: summaryData?.product_sales_x || [],
         datasets: [
             {
-                label: 'Product Sales',
+                label: 'Units Sold',
                 data: summaryData?.product_sales_y || [],
                 backgroundColor: '#3B82F6',
                 borderColor: '#3B82F6',
@@ -237,7 +237,7 @@ const Home = () => {
         <div className="px-4 py-6 sm:px-0">
             <div className="bg-white overflow-hidden shadow-sm rounded-lg">
                 <div className="p-6">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{profileData.username || 'User'}'s Analytics Dashboard</h2>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{profileData.first_name || profileData.username || 'User'}'s Analytics Dashboard</h2>
                     
                     {!summaryData ? (
                         <p className="text-gray-500 italic mb-6">No data available. Please upload sales data to view analytics.</p>
@@ -318,7 +318,7 @@ const Home = () => {
                                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                     <div className="h-[300px]">
                                         <Line 
-                                            options={chartOptions('Monthly Sales')} 
+                                            options={chartOptions('Sales by Month')} 
                                             data={salesByMonthData}
                                         />
                                     </div>
@@ -328,7 +328,7 @@ const Home = () => {
                                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                     <div className="h-[300px]">
                                         <Bar 
-                                            options={chartOptions('Product Sales', false)} 
+                                            options={chartOptions('Sales by Quantity', false)} 
                                             data={productSalesData}
                                         />
                                     </div>
@@ -338,7 +338,7 @@ const Home = () => {
                                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 md:col-span-2">
                                     <div className="h-[300px]">
                                         <Line 
-                                            options={chartOptions('Total Sales Over Time')} 
+                                            options={chartOptions('Products by Total Sales')} 
                                             data={totalSalesData}
                                         />
                                     </div>
