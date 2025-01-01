@@ -47,7 +47,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 font-poppins">
+    <div className="min-h-screen bg-white font-poppins">
       <div className="container mx-auto p-4 flex items-center justify-center min-h-screen">
         <div className="flex w-full max-w-4xl bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
           {/* Form Section */}

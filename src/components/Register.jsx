@@ -52,7 +52,7 @@ const Register = () => {
   };
 
   return (
-    <div className="font-poppins bg-gray-100">
+    <div className="font-poppins bg-white">
       <div className="container mx-auto p-4 flex items-center justify-center min-h-screen">
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm w-full max-w-md md:max-w-4xl flex flex-col md:flex-row">
           {/* Form Section */}
