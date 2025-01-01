@@ -237,8 +237,8 @@ const Home = () => {
         <div className="px-4 py-4 sm:px-0">
             <div className="bg-white overflow-hidden shadow-sm rounded-lg">
                 <div className="p-4">
-                    <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center tracking-wide"> Hello {profileData.first_name || profileData.username || 'User'},</h2>
-                    
+                    <h2 className="text-3xl font-semibold text-gray-900 mb-1 text-left tracking-wide"> Hey, {profileData.first_name || profileData.username || 'User'}!</h2>
+                    <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-left tracking-wide"> Here's today's report.</h2>
                     {!summaryData ? (
                         <p className="text-gray-500 italic mb-4">No data available. Please upload sales data to view analytics.</p>
                     ) : (
