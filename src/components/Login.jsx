@@ -29,7 +29,7 @@ const LoginPage = () => {
       const response = await login(formData.username, formData.password);
       if (response.token) {
         localStorage.setItem('token', response.token);
-        navigate('/home');
+        navigate('/upload-sales');
       } else {
         setError('Invalid login response from server');
       }
