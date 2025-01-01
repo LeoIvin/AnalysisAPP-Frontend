@@ -234,17 +234,17 @@ const Home = () => {
     }
 
     return (
-        <div className="px-4 py-6 sm:px-0">
+        <div className="px-4 py-4 sm:px-0">
             <div className="bg-white overflow-hidden shadow-sm rounded-lg">
-                <div className="p-6">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{profileData.first_name || profileData.username || 'User'}'s Analytics Dashboard</h2>
+                <div className="p-4">
+                    <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center tracking-wide"> Hello {profileData.first_name || profileData.username || 'User'},</h2>
                     
                     {!summaryData ? (
-                        <p className="text-gray-500 italic mb-6">No data available. Please upload sales data to view analytics.</p>
+                        <p className="text-gray-500 italic mb-4">No data available. Please upload sales data to view analytics.</p>
                     ) : (
                         <>
                             {/* Summary Statistics */}
-                            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 mb-8">
+                            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 mb-6">
                                 <div className="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 p-6">
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">
@@ -313,7 +313,7 @@ const Home = () => {
                             </div>
 
                             {/* Charts Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Sales by Month Chart */}
                                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                     <div className="h-[300px]">
