@@ -10,8 +10,8 @@ const LoginPage = () => {
     username: '',
     password: '',
   });
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const year = new Date().getFullYear();
@@ -20,6 +20,14 @@ const LoginPage = () => {
     }
   }, []);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -27,6 +35,7 @@ const LoginPage = () => {
 
     try {
       const response = await login(formData.username, formData.password);
+      
       if (response.token) {
         localStorage.setItem('token', response.token);
         navigate('/home');
@@ -34,18 +43,11 @@ const LoginPage = () => {
         setError('Invalid login response from server');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      console.error('Login failed:', err);
+      setError(err.response?.data?.error || err.response?.data?.message || err.message || 'Login failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
   };
 
   return (
@@ -89,7 +91,7 @@ const LoginPage = () => {
                 </button>
 
                 <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 after:flex-1 after:border-t after:border-gray-200">
-                  Or
+                    Or
                 </div>
 
                 {/* Username Field */}
@@ -98,14 +100,14 @@ const LoginPage = () => {
                     Username
                   </label>
                   <input
-                    type="text"
                     id="username"
                     name="username"
+                    type="text"
+                    required
                     value={formData.username}
                     onChange={handleChange}
                     className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     placeholder="johndoe"
-                    required
                   />
                 </div>
 
@@ -115,14 +117,14 @@ const LoginPage = () => {
                     Password
                   </label>
                   <input
-                    type="password"
                     id="password"
                     name="password"
+                    type="password"
+                    required
                     value={formData.password}
                     onChange={handleChange}
                     className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     placeholder="********"
-                    required
                   />
                 </div>
 
