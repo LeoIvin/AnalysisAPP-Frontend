@@ -59,7 +59,7 @@ const LoginPage = () => {
             {/* Logo */}
             <div className="text-center mb-9 flex items-center justify-center">
               <h1 className="text-3xl font-bold font-archivo tracking-wide text-black">DATUS.</h1>
-              <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">BETA</span>
+              <span className="gpx-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">BETA</span>
             </div>
 
             <div className="text-left mb-4">
