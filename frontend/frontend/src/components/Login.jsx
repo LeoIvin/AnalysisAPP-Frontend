@@ -57,9 +57,8 @@ const LoginPage = () => {
           {/* Form Section */}
           <div className="bg-white border-gray-200 p-6 w-full md:w-1/2">
             {/* Logo */}
-            <div className="text-center mb-9 flex items-center justify-center">
+            <div className="text-center mb-9">
               <h1 className="text-3xl font-bold font-archivo tracking-wide text-black">DATUS.</h1>
-              <span className="gpx-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">BETA</span>
             </div>
 
             <div className="text-left mb-4">
