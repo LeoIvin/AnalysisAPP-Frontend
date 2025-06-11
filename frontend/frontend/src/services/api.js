@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-<<<<<<< HEAD
-const API_URL = 'https://analysisapp.onrender.com/';
-=======
-const API_URL = 'https://analysisapp.onrender.com';
->>>>>>> 8f6c0f49443004881822baa315713522b1a7bc51
+const API_URL = 'http://localhost:8000/';
 
 const api = axios.create({
     baseURL: API_URL
